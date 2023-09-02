@@ -6,7 +6,6 @@ const listOfWeights = document.getElementById('element2')
 const button = document.getElementById('btn')
 const displayResult = document.getElementById('result')
 
-
 const balanceScale = (element1, element2) => {
   const difference = Math.abs(element1[0] - element1[1])
   if (difference === 0) return 'The scale is balanced'
@@ -30,22 +29,27 @@ const balanceScale = (element1, element2) => {
       }
     }
   }
-  return displayResult.innerHTML = 'The scale cannot be balanced'
+  const err = displayResult.innerHTML = 'The scale cannot be balanced'
+  return err
 }
 
 button.addEventListener('click', () => {
   if (input.value.trim() === '') {
-    return displayResult.innerHTML = 'Please enter 2 weights on the balance scale'
+    displayResult.style.borderColor = 'red'
+    const err = displayResult.innerHTML = 'Please enter 2 weights on the balance scale'
+    return err
   } else if (listOfWeights.value.trim() === '') {
     displayResult.style.borderColor = 'red'
-    return displayResult.innerHTML = 'Please enter a list of weights to balance the scale'
+    const err = displayResult.innerHTML = 'Please enter a list of weights to balance the scale'
+    return err
   } else {
     const element1Arr = input.value.split(',').map(Number)
     const element2Arr = listOfWeights.value.split(',').map(Number)
 
     if (element1Arr.length !== 2 || element1Arr[0] === 0) {
+      displayResult.style.borderColor = 'red'
       displayResult.innerHTML = 'Please enter 2 weights on the balance scale'
-    }else {
+    } else {
       displayResult.innerHTML = balanceScale(element1Arr, element2Arr)
     }
   }
